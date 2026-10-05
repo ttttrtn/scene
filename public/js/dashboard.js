@@ -42,5 +42,23 @@
     }, function (err) { UI.toast(err.message, true); });
   });
 
+  UI.api('GET', '/api/storage').then(function (st) {
+    if (st && st.warning) document.querySelector('.dash-main').before(h('div', { class: 'storage-warn', role: 'alert', text: '\u26a0 ' + st.warning }));
+  }, function () {});
+
+  var importFile = document.getElementById('importFile');
+  document.getElementById('importBtn').addEventListener('click', function () { importFile.click(); });
+  importFile.addEventListener('change', function () {
+    var f = importFile.files[0];
+    if (!f) return;
+    f.text().then(function (t) {
+      return UI.api('POST', '/api/import', JSON.parse(t));
+    }).then(function (r) {
+      UI.toast('Imported ' + r.imported + ' scene(s)' + (r.imported ? '' : ' (all already exist)'));
+      importFile.value = '';
+      load();
+    }, function (e) { UI.toast(e.message || 'Import failed', true); importFile.value = ''; });
+  });
+
   load();
 })();

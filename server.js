@@ -131,9 +131,19 @@ app.get('/', requireAdmin, sendView('dashboard.html'));
 app.get('/editor/:id', requireAdmin, sendView('editor.html'));
 
 const api = express.Router();
-api.use(requireAdmin, requireXhr, express.json({ limit: '2mb' }));
+const jsonSmall = express.json({ limit: '2mb' });
+api.use(requireAdmin, requireXhr, (req, res, next) => (req.path === '/import' ? next() : jsonSmall(req, res, next)));
 api.use((req, res, next) => { res.set('Cache-Control', 'no-store'); next(); });
 
+api.get('/export', (req, res) => {
+  res.set('Content-Disposition', 'attachment; filename="scenes.json"');
+  res.json(db.exportAll());
+});
+api.post('/import', express.json({ limit: '20mb' }), (req, res) => {
+  const n = db.importAll(req.body, req.query.replace === '1');
+  res.json({ imported: n });
+});
+api.get('/storage', (req, res) => res.json(db.STORAGE));
 api.get('/scenes', (req, res) => res.json(db.listScenes()));
 api.post('/scenes', (req, res) => res.status(201).json(db.createScene(req.body && req.body.name)));
 api.get('/scenes/:id', (req, res) => {

@@ -140,4 +140,12 @@ elements: scene_id, id, type, name, source, props (JSON), x, y, width, height,
 ```
 
 `version` increases on every save, which is what the public scene compares to decide whether to update.
-"# scene" 
+
+## Disk file (`scenes.json`)
+
+Besides SQLite, every change is written to `DATA_DIR/scenes.json` (atomic write, ~0.5 s after the change). When the app starts with an empty database it rebuilds itself from, in order:
+
+1. `DATA_DIR/scenes.json`
+2. `seed/scenes.json` in the project (override with `SEED_FILE`)
+
+**Free-tier trick:** click **Download scenes.json** on the dashboard, save it as `seed/scenes.json`, and commit it. Every deploy and every spin-down restart then reloads your scenes from that file. Changes made after the last commit are only kept until the next restart, so download and commit again after editing. **Import file** merges a downloaded file back in (existing scene IDs are never overwritten).

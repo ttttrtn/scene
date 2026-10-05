@@ -20,6 +20,14 @@
     <div id="sceneGrid" class="scene-grid"></div>
   </section>
   <aside class="obs-help">
+    <h2>Backup</h2>
+    <p class="muted">Scenes are also saved to a <code>scenes.json</code> file on disk and reloaded from it on startup.</p>
+    <div class="row">
+      <a class="btn" href="/api/export" download="scenes.json">Download scenes.json</a>
+      <button class="btn" id="importBtn" type="button">Import file</button>
+      <input id="importFile" type="file" accept="application/json,.json" hidden>
+    </div>
+    <hr>
     <h2>OBS Browser Source</h2>
     <ol>
       <li>Copy the public scene URL.</li>

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scene Builder</title>
+<link rel="stylesheet" href="/css/app.css">
+</head>
+<body class="dash">
+<header class="dash-head">
+  <h1>Scene Builder</h1>
+  <form id="newForm" class="new-form">
+    <input id="newName" type="text" maxlength="80" placeholder="New scene name, e.g. Halloween Stream" aria-label="New scene name">
+    <button class="btn primary" type="submit">Create scene</button>
+  </form>
+</header>
+<main class="dash-main">
+  <section>
+    <h2>Your scenes</h2>
+    <div id="sceneGrid" class="scene-grid"></div>
+  </section>
+  <aside class="obs-help">
+    <h2>OBS Browser Source</h2>
+    <ol>
+      <li>Copy the public scene URL.</li>
+      <li>In OBS, add a <b>Browser</b> source.</li>
+      <li>Paste the URL.</li>
+      <li>Set width to <b>1920</b> and height to <b>1080</b>.</li>
+      <li>Leave the custom CSS box as it is. The scene is already transparent.</li>
+      <li>Click OK. Move or resize overlays in the editor and OBS updates by itself.</li>
+    </ol>
+    <p class="muted">Tip: add <code>?preview=true</code> to the URL to check a scene in a normal browser tab.</p>
+  </aside>
+</main>
+<script src="/js/api.js"></script>
+<script src="/js/dashboard.js"></script>
+</body>
+</html>

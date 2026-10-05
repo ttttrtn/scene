@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Editor · Scene Builder</title>
+<link rel="stylesheet" href="/css/overlay.css">
+<link rel="stylesheet" href="/css/app.css">
+</head>
+<body class="editor">
+<header class="topbar">
+  <a class="btn ghost" href="/">&lsaquo; Scenes</a>
+  <input id="sceneName" class="name-input" maxlength="80" aria-label="Scene name" placeholder="Scene name">
+  <span id="saveStatus" class="status saved" role="status" aria-live="polite">Saved &#10003;</span>
+  <span class="spacer"></span>
+  <button id="btnCopy" class="btn" type="button">Copy URL</button>
+  <button id="btnPreview" class="btn primary" type="button">Preview Scene</button>
+</header>
+
+<aside class="panel left">
+  <div class="panel-head">
+    <h2>Scene elements</h2>
+    <button id="btnAdd" class="btn primary sm" type="button">+ Add overlay</button>
+  </div>
+  <ul id="layerList" class="layers"></ul>
+  <p class="hint">Drag rows to change layer order. The top row is the front layer.</p>
+</aside>
+
+<main id="stageWrap" class="stage">
+  <div id="stageSize">
+    <div id="canvas">
+      <div id="layer"></div>
+      <div id="guides"><i class="gl v"></i><i class="gl hz"></i></div>
+      <div id="selbox" hidden></div>
+    </div>
+  </div>
+  <span id="zoomInfo" class="zoom-info"></span>
+</main>
+
+<aside id="props" class="panel right"></aside>
+
+<dialog id="addDialog">
+  <form id="addForm" class="dlg" novalidate>
+    <h2>Add overlay</h2>
+    <div class="tabs">
+      <button type="button" data-type="iframe" class="tab on">Browser URL</button>
+      <button type="button" data-type="image" class="tab">Image</button>
+      <button type="button" data-type="text" class="tab">Text</button>
+      <button type="button" data-type="html" class="tab">HTML widget</button>
+    </div>
+    <label class="field"><span>Name (optional)</span><input id="addName" maxlength="80" placeholder="Chat, Logo, Alerts"></label>
+    <label class="field" id="fUrl"><span id="addUrlLabel">Overlay URL</span><input id="addUrl" type="text" inputmode="url" placeholder="https://my-widget.onrender.com/"></label>
+    <label class="field" id="fText" hidden><span id="addTextLabel">Text</span><textarea id="addText" rows="6"></textarea></label>
+    <p id="addHint" class="hint"></p>
+    <p id="addErr" class="err" role="alert"></p>
+    <div class="row end">
+      <button type="button" class="btn" id="addCancel">Cancel</button>
+      <button type="submit" class="btn primary">Add overlay</button>
+    </div>
+  </form>
+</dialog>
+
+<script src="/js/render.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/editor.js"></script>
+</body>
+</html>
